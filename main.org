@@ -1,142 +1,88 @@
-#+OPTIONS: author:nil
+#+OPTIONS: Willian Ver Valem Paiva
 #+OPTIONS: toc:nil
-#+TITLE: to be defined
+#+TITLE: Capstone Proposal
 #+DATE:
 #+LaTeX_CLASS: article
 #+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{pdflscape}
 
-* Context
-  Le début du XXIème siècle a vu une augmentation drastique d’applications
-  informatiques apportant une assistance à de nombreuses activités humaines.
-  Parmi celles-ci, le secteur de la médecine. L’utilisation de
-  la technologie appliquée à la santé est devenue un des points d’intérêt de notre société : 
-
-   - L’emploi des robots d'assistances en chirurgie 
-   - La mesure des données physiologiques (taux de sucre dans le sang pour les diabétiques)
-   - Les serious games pour réapprendre à marché
-   - Le dossier médical partagé
-
-   Ces innovations qui parsèment le champ de santé émergent dans un domaine
-   important qui est celui de la gestion de la douleur. 
-
-
-   L’objectif principal de ce projet de recherche  consiste à pouvoir mesurer
-   les niveaux de douleur. En effet, cette solution va pouvoir aider les
-   médecins à fournir un traitement adapté  aux patients affectés de douleurs
-   chroniques. La mesure de la douleur n’est pas une tâche facile et constitue
-   depuis longtemps un défi, même pour des professionnels de santé avertis. De
-   nombreuses échelles et méthodes de mesure ont été créées pour résoudre une
-   telle question
-   cite:wong1996wong,mccaffery1999pain,portenoy1996visual,melzack1975mcgill,galer1997development,gracely1988descriptor
-   mais leurs efficacités est limitée. Jusqu’à 
-   ce jour, il est encore difficile d’arriver à une mesure précise de la
-   douleur. En réalité, du fait que la douleur est une sensation subjective, la
-   mesure la plus utilisée est l’auto-évaluation par le patient. Même si cette
-   mesure donne
-   des résultats relativement acceptables, elle est encore insuffisante sur certains
-   aspects, notamment quand on en vient à la notion de douleur simulée cite:gwen2007faces, ou,
-   plus couramment, lorsque le patient a des difficultés à communiquer, comme
-   lorsqu’il s’agit d’enfants ou de personnes âgées cite:lucey2011automatically. 
-
-   La création d’une méthode capable de fournir une mesure précise du niveau de douleur ressentie
-   par le patient pourrait aider le système actuel de diagnostic à dépasser une
-   barrière difficile : la subjectivité de la douleur du patient. 
-
-** State of the art
-  Jusqu’à maintenant, il y a eu un certain nombre de recherches sérieuses pour
-  essayer d’obtenir un système de détection de la douleur spar l’analyse des
-  données biométriques (pupilles, verbales, vocales, ECG etc.).La reconnaissance
-  faciale est l'un des systèmes qui se révèle le plus prometteur pour mesurer et
-  analyser la douleur d'un patient dans une temporalité rapide.  Afin d’atteindre
-  cet objectif, plusieurs systèmes ont utilisé des collections de données
-  affectées de codes FACS (Facial Action Coding System) cite:lucey2011painful. 
-
-  Le principal travail réalisé sur ce sujet a été la recherche menée par
-  l’Université de Pittsburgh "Automatically Detecting Pain in Video Through Facial
-  Action Units" cite:lucey2011automatically. Cette recherche s’est basée principalement sur l’utilisation
-  des FACS pour détecter la douleur sur des images données. Les résultats obtenus
-  ont été élémentaires. Ils ont porté sur la présence ou l’absence de douleur («
-  pain or no pain »). 
-
-  Une autre recherche, menée sur le même sujet, avec le même ensemble de données,
-  est celle qui a été menée à l’Université d’Aalborg Danemark
-  cite:bellantonio2016spatio. Cette recherche, plus récente, a obtenu des
-  résultats plus prometteurs, en utilisant une combinaison de réseaux neuronaux
-  convolutionnels, et de réseaux neuronaux récurrents. En combinant ces deux
-  méthodes, il a été possible de considérer non seulement une image et ses FACS,
-  mais aussi d’analyser les images préalables de la séquence considérée, et
-  d’obtenir une meilleure précision des résultats. Cela permettant ainsi
-  d’atteindre un échelonnement allant de « absence de douleur « (« no pain ») à
-  « forte douleur » ( strong pain ») en passant par « faible douleur » (« weak
-  pain »), cequi a constitué une amélioration significative. 
-
-  Le point commun de ces recherche est le fait qu’elles utilisent la même base de
-  données pour l’apprentissage et cela ne permet pas de fourni une précision
-  suffisante pour constituer un outil vraiment fiable en adéquation des
-  obligations légales cliniques. De plus, ces recherches se fondent uniquement sur
-  les expressions faciales, et ne prennent pas en considération d’autres facteurs
-  comme le ton de la voix, et la sémantique utilisée dans le dialogue.  Ceci afin
-  d’autoriser une analyse de la composante émotionnelle, laquelle est un facteur
-  important lorsqu’il s’agit de mesurer convenablement le niveau de douleur du
-  patient  cite:hale1997emotional.   
-
-
-** Methodological approach
+* Machine Learning Engineer Nanodegree
+** Context
    
-   Cette thèse propose une nouvelle approche du problème avec l’utilisation d’une
-   nouvelle base de données générée grâce à la contribution de volontaires
-   souffrant de douleurs chroniques (réglementation CNIL / données de santé
-   respectées). Même si une nouvelle base de données constitue un bon point de
-   départ, l’apprentissage d’un modèle de deep learning peut exiger d’importantes
-   quantités de données. C’est pourquoi il a été imaginé de compter sur la
-   contribution des praticiens, lesquels ont une longue expérience et une bonne
-   connaissance du problème, et ne devraient pas être exclus de l’approche
-   proposée. 
+   For a long time work in facial recognition has being done and one of the key
+   points of this work is the face alignment as it poses its own challenge.
+   And the main tool used for the job is OpenCV which is used with DLIB to
+   recognize Facial landmarks.
+   
+   The automatic recognition of landmarks is essential to be able to classify
+   facial expressions, as it makes possible to classify Facial Action units also
+   known as FACS cite:ekman1977facial, which in turn is used to recognize facial
+   expression and sentiment analyses of such expressions.
+   
+   As one of my main projects today is to create a DNN capable to recognize
+   facial expression of pain, this subject comes to be perfect as it cover a
+   personal necessity and brings a good subject to work and learn.
+   
 
-   En effet, un praticien utilise autre chose qu’une simple image pour mesurer la
-   douleur. Il prend en considération de nombreux autres facteurs. C’est pourquoi
-   le projet propose d’utiliser l’expérience des praticiens pour compenser le
-   faible volume de données d’entraînement, ce qui pourrait se comparer au
-   fonctionnement des systèmes experts cite:giarratano1998expert. 
+** Existent Solutions
 
-   Cependant, il n’est pas encore clair à ce jour quelle sera la manière dont il
-   sera possible de concilier le deep learning et les systèmes experts. Le but de
-   cette thèse sera l’exploration des moyens d’y parvenir. 
+   Today we have many different implementations to automatically recognize
+   facial landmarks on images. But yet find an implementations on Tensorflow is
+   not that easy. As most of the works done on the subject is heavily dependent
+   of DLIB to recognize the landmarks.
+   
+   Even the project [[https://github.com/davidsandberg/facenet][Facenet]] cite:Charles2013 uses DLIB for this task. while some projects like
+   the 3D facial landmarks cite:bulat2017far from Adrian Bulat provide
+   remarkable results it is implemented in torch.
+   
+   So for that reason i propose for this project to create a Deep Neural Network to
+   tackle such subject.
 
-* Objectives
-  
-  Comme les données sur ce sujet sont plutôt limitées, l’un des principaux
-  objectifs de cette thèse sera d’entraîner des systèmes de deep learning à être
-  capables de mesurer de la façon la plus précise possible le niveau de douleur
-  sur une vidéo, en utilisant des données réduites grâce à un coeur de facteurs de
-  décision importé, élaborés par des experts qui ont déjà une connaissance de la
-  mesure de la douleur.  
-  Il s’agira ainsi de rendre le processus d’apprentissage moins dépendant de la
-  grande quantité de données à analyser, même si on prendra garde de ne pas
-  sacrifier les capacités de généralisation du modèle.  
+** The MUCT data base
+   
+   To work out this problem i propose to use the MUCT Face Database
+   cite:Milborrow10  this dataset consists of pictures taken from 276 subjects
+   using 5 cameras in different angles an light conditions like the image below: 
+   #+CAPTION There is no images on the left but they cam be reproduced by mirroring the right side
+   [[./images/muct-views-lores.jpg]]
+   
+   Each picture is coded with 76 facial landmark like: 
+   [[./images/landmarks.jpg]]
+   
 
+   The dataset is public available via github on the following link
+   https://github.com/StephenMilborrow/muct
 
-** Scientific and technological challenges
+** Solution and road map
+   
+   To solve such a problem i will begin from the point of training my own model 
+   using Convolutional Neural Networks and compare the results by using transfer
+   learning from other models inception v3 , resnet, etc.
+   
+   The main idea here is to create a model with 152 regression outputs giving
+   the respective X and Y of each point.
+   
+   In case the transfer learning don't give good results another approach would
+   be go up on the pre-trained model and get more fine tuning.
+   By using the option:
+   
+   #+BEGIN_SRC python
+   include_top=True
+   #+END_SRC
+   
+   when importing the pre-trained model in Keras, and by freezing different parts
+   of the model is possible to archive diferent results.
+   
+   
 
-   Les défis scientifiques à explorer dans le cadre de cette thèse sont les suivants :
+** Evaluation and Metrics     
+   
+   As the problem consists on a regression model i believe that for the
+   evaluation of the results we could use the accuracy calculated by using one
+   of the regression functions R-squared OR mean-squared. 
 
-   - proposer un modèle capable de fournir efficacement une mesure de la douleur
-   - identifier les principaux points de décision qui peuvent être importés sur
-     la base des connaissances des experts, et qui peuvent être utilisés pour
-     améliorer les modèles d’apprentissage.
-     
-* Organization
-  Cette thèse se déroulera sur une période de 36 mois et pendant toute cette
-  durée, le temps de travail se répartira entre le laboratoire hôte (le LABRI,
-  Université de Bordeaux), et la compagnie (Lucine) Planning
-** Planning
-   - T0 + 6m:
-   - T0 + 12m:
-   - T0 + 18m:
-   - T0 + 24m:
-   - T0 + 36m: Writing of thesis and defense
-
-
+   
 
 bibliographystyle:unsrt
 bibliography:repport.bib
+

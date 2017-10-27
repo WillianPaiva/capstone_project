@@ -30,15 +30,15 @@
     "amssymb"
     "capt-of"
     "hyperref"
-    "minted")
+    "minted"
+    "pdflscape")
    (LaTeX-add-labels
-    "sec:orged2ba66"
-    "sec:org478492c"
-    "sec:org00ed8cb"
-    "sec:orgc54e2f3"
-    "sec:orgcc64c7c"
-    "sec:org3727189"
-    "sec:orgcf02a1b")
+    "sec:org7abe61d"
+    "sec:orgc08cfe2"
+    "sec:org56d5a6f"
+    "sec:orgebdda92"
+    "sec:orgb19ef59"
+    "sec:orgb456879")
    (LaTeX-add-bibliographies
     "repport"))
  :latex)

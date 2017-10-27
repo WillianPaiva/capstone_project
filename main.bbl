@@ -1,75 +1,25 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{1}
 
-\bibitem{wong1996wong}
-Donna~Lee Wong, M~Hockenberry-Eaton, D~Wilson, ML~Winkelstein, and P~Schwartz.
-\newblock Wong-baker faces pain rating scale.
-\newblock {\em Home Health Focus}, 2(8):62, 1996.
+\bibitem{ekman1977facial}
+Paul Ekman and Wallace~V Friesen.
+\newblock Facial action coding system.
+\newblock 1977.
 
-\bibitem{mccaffery1999pain}
-M~McCaffery and C~Pasero.
-\newblock Pain: clinical manual . st louis, mo: Mosby, 1999.
+\bibitem{Charles2013}
+David Sandberg.
+\newblock facenet.
+\newblock \url{https://github.com/davidsandberg/facenet}, 2017.
 
-\bibitem{portenoy1996visual}
-RK~Portenoy and RM~Tanner.
-\newblock Visual analog scale and verbal pain intensity scale: from pain
-  management: theory and practice.
-\newblock {\em Oxford University Press, Inc}, 1:996, 1996.
+\bibitem{bulat2017far}
+Adrian Bulat and Georgios Tzimiropoulos.
+\newblock How far are we from solving the 2d \& 3d face alignment problem? (and
+  a dataset of 230,000 3d facial landmarks).
+\newblock In {\em International Conference on Computer Vision}, 2017.
 
-\bibitem{melzack1975mcgill}
-Ronald Melzack.
-\newblock The mcgill pain questionnaire: major properties and scoring methods.
-\newblock {\em Pain}, 1(3):277--299, 1975.
-
-\bibitem{galer1997development}
-Bradley~S Galer and Mark~P Jensen.
-\newblock Development and preliminary validation of a pain measure specific to
-  neuropathic pain the neuropathic pain scale.
-\newblock {\em Neurology}, 48(2):332--338, 1997.
-
-\bibitem{gracely1988descriptor}
-Richard~H Gracely and Donna~M Kwilosz.
-\newblock The descriptor differential scale: applying psychophysical principles
-  to clinical pain assessment.
-\newblock {\em Pain}, 35(3):279--288, 1988.
-
-\bibitem{gwen2007faces}
-CL~Gwen, C~Marian, Stewart Bartlett, and Kang Lee.
-\newblock Faces of pain: automated measurement of spontaneous all facial
-  expressions of genuine and posed pain.
-\newblock 2007.
-
-\bibitem{lucey2011automatically}
-Patrick Lucey, Jeffrey~F Cohn, Iain Matthews, Simon Lucey, Sridha Sridharan,
-  Jessica Howlett, and Kenneth~M Prkachin.
-\newblock Automatically detecting pain in video through facial action units.
-\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics, Part B
-  (Cybernetics)}, 41(3):664--674, 2011.
-
-\bibitem{lucey2011painful}
-Patrick Lucey, Jeffrey~F Cohn, Kenneth~M Prkachin, Patricia~E Solomon, and Iain
-  Matthews.
-\newblock Painful data: The unbc-mcmaster shoulder pain expression archive
-  database.
-\newblock In {\em Automatic Face \& Gesture Recognition and Workshops (FG
-  2011), 2011 IEEE International Conference on}, pages 57--64. IEEE, 2011.
-
-\bibitem{bellantonio2016spatio}
-Marco Bellantonio, Mohammad~A Haque, Pau Rodriguez, Kamal Nasrollahi, Taisi
-  Telve, Sergio Escarela, Jordi Gonzalez, Thomas~B Moeslund, Pejman Rasti, and
-  Gholamreza Anbarjafari.
-\newblock Spatio-temporal pain recognition in cnn-based super-resolved facial
-  images.
-\newblock In {\em International Workshop on Face and Facial Expression
-  Recognition from Real World Videos}, pages 151--162. Springer, 2016.
-
-\bibitem{hale1997emotional}
-Carla~J Hale and Thomas Hadjistavropoulos.
-\newblock Emotional components of pain.
-\newblock {\em Pain Research and Management}, 2(4):217--225, 1997.
-
-\bibitem{giarratano1998expert}
-Joseph~C Giarratano and Gary Riley.
-\newblock {\em Expert systems}.
-\newblock PWS Publishing Co., 1998.
+\bibitem{Milborrow10}
+S.~Milborrow, J.~Morkel, and F.~Nicolls.
+\newblock {The MUCT Landmarked Face Database}.
+\newblock {\em Pattern Recognition Association of South Africa}, 2010.
+\newblock \url{http://www.milbo.org/muct}.
 
 \end{thebibliography}

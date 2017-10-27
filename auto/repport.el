@@ -15,6 +15,12 @@
     "gracely1988descriptor"
     "hale1997emotional"
     "ekman1997face"
-    "lucey2011painful"))
+    "lucey2011painful"
+    "ekman1977facial"
+    "goodfellow2014generative"
+    "cohn1999cohn"
+    "bulat2017far"
+    "Milborrow10"
+    "Charles2013"))
  :bibtex)
 
