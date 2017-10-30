@@ -5,16 +5,42 @@ Paul Ekman and Wallace~V Friesen.
 \newblock Facial action coding system.
 \newblock 1977.
 
-\bibitem{Charles2013}
-David Sandberg.
-\newblock facenet.
-\newblock \url{https://github.com/davidsandberg/facenet}, 2017.
+\bibitem{edwards1998face}
+Gareth~J Edwards, Timothy~F Cootes, and Christopher~J Taylor.
+\newblock Face recognition using active appearance models.
+\newblock In {\em European conference on computer vision}, pages 581--595.
+  Springer, 1998.
+
+\bibitem{matthews2004active}
+Iain Matthews and Simon Baker.
+\newblock Active appearance models revisited.
+\newblock {\em International journal of computer vision}, 60(2):135--164, 2004.
 
 \bibitem{bulat2017far}
 Adrian Bulat and Georgios Tzimiropoulos.
 \newblock How far are we from solving the 2d \& 3d face alignment problem? (and
   a dataset of 230,000 3d facial landmarks).
 \newblock In {\em International Conference on Computer Vision}, 2017.
+
+\bibitem{sagonas2013300}
+Christos Sagonas, Georgios Tzimiropoulos, Stefanos Zafeiriou, and Maja Pantic.
+\newblock 300 faces in-the-wild challenge: The first facial landmark
+  localization challenge.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer
+  Vision Workshops}, pages 397--403, 2013.
+
+\bibitem{cohn1999cohn}
+JF~Cohn et~al.
+\newblock Cohn-kanade au-coded facial expression database.
+\newblock {\em Pittsburgh University}, 1999.
+
+\bibitem{mcduff2013affectiva}
+Daniel McDuff, Rana Kaliouby, Thibaud Senechal, May Amr, Jeffrey Cohn, and
+  Rosalind Picard.
+\newblock Affectiva-mit facial expression dataset (am-fed): Naturalistic and
+  spontaneous facial expressions collected.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition Workshops}, pages 881--888, 2013.
 
 \bibitem{Milborrow10}
 S.~Milborrow, J.~Morkel, and F.~Nicolls.

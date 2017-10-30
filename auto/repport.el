@@ -21,6 +21,10 @@
     "cohn1999cohn"
     "bulat2017far"
     "Milborrow10"
-    "Charles2013"))
+    "Charles2013"
+    "edwards1998face"
+    "matthews2004active"
+    "sagonas2013300"
+    "mcduff2013affectiva"))
  :bibtex)
 
