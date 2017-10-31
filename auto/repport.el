@@ -25,6 +25,7 @@
     "edwards1998face"
     "matthews2004active"
     "sagonas2013300"
-    "mcduff2013affectiva"))
+    "mcduff2013affectiva"
+    "milborrow2009active"))
  :bibtex)
 

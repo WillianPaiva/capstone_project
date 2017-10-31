@@ -33,13 +33,13 @@
     "minted"
     "pdflscape")
    (LaTeX-add-labels
-    "sec:org76d5988"
-    "sec:org0a4a041"
-    "sec:orgc779fb9"
-    "sec:org7053fa3"
-    "sec:org9c1b393"
-    "sec:orgc329deb"
-    "sec:org3b4fa7e")
+    "sec:org1223897"
+    "sec:org7c4259d"
+    "sec:orgc813de3"
+    "sec:org04b013a"
+    "sec:org3e1888b"
+    "sec:org7ebac43"
+    "sec:org190fc9a")
    (LaTeX-add-bibliographies
     "repport"))
  :latex)
