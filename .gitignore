@@ -4,3 +4,19 @@ proposal/images/\.DS_Store
 \.DS_Store
 
 proposal/decompressed_dataset
+project/\.ipynb_checkpoints/
+
+
+project/decompressed_dataset/muct-landmarks/
+
+project/decompressed_dataset/a/jpg/
+
+project/decompressed_dataset/b/jpg/
+
+project/decompressed_dataset/c/jpg/
+
+project/decompressed_dataset/d/jpg/
+
+project/decompressed_dataset/e/jpg/
+
+\.#\.gitignore
