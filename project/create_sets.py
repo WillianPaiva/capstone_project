@@ -159,6 +159,7 @@ def gen_dataset(size):
     if not os.path.exists('./decompressed_dataset'):
         print("decompresssing files")
         untar_files()
+        LABELS = load_csv()
 
     if not os.path.exists('./decompressed_dataset/a_test/'):
         print("spliting the training and test set")
@@ -174,7 +175,7 @@ def gen_dataset(size):
 
 
 DETECTOR = dlib.get_frontal_face_detector()
-LABELS = load_csv()
+LABELS = []
 PROGBAR = progressbar.ProgressBar(redirect_sdtdout=True)
 PARSER = argparse.ArgumentParser(description='generate dataset')
 
