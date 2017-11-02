@@ -95,6 +95,7 @@ def load_dataset(size):
     """generate the data-set with data augmentation and
     returns the the repective train and test set"""
 
+    LABELS = load_csv()
     if not os.path.exists('./decompressed_dataset'):
         print("please decompress the data first and create the test and train sets")
         return
@@ -159,7 +160,6 @@ def gen_dataset(size):
     if not os.path.exists('./decompressed_dataset'):
         print("decompresssing files")
         untar_files()
-        LABELS = load_csv()
 
     if not os.path.exists('./decompressed_dataset/a_test/'):
         print("spliting the training and test set")
@@ -175,7 +175,6 @@ def gen_dataset(size):
 
 
 DETECTOR = dlib.get_frontal_face_detector()
-LABELS = []
 PROGBAR = progressbar.ProgressBar(redirect_sdtdout=True)
 PARSER = argparse.ArgumentParser(description='generate dataset')
 
