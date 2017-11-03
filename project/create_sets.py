@@ -60,28 +60,22 @@ def crop_picture(image, size):
     else:
         for _, positions in enumerate(faces):
             box_size = positions.bottom() - positions.top()
-            change = size - box_size
-            change_top = 0
-            change_bottom = 0
-            if change % 2 == 0:
-                change_bottom = int(change/2)
-                change_top = int(change/2)
-            else:
-                change_bottom = int(math.floor(change/2)) +1
-                change_top = int(math.floor(change/2))
+            change = int((size - box_size)/2)
 
-
-
-            top = positions.top()-change_top
-            left = positions.left()-change_top
-            bottom = positions.bottom()+change_bottom
-            right = positions.right()+change_bottom
+            top = positions.top()-change
+            left = positions.left()-change
+            bottom = top + size
+            right = left + size
             box = {"top":top,
                    "left":left,
                    "bottom":bottom,
                    "right":right}
-
-            return (image[top:bottom, left:right], box)
+            constant= cv2.copyMakeBorder(image,0,50,0,50,cv2.BORDER_CONSTANT)
+            res = constant[top:bottom, left:right]
+            if res.shape != (299,299,3):
+                print(res.shape)
+                return None
+            return ( res, box)
 
 def recalculate_landmarks(box, label):
     """recalculate the landmarks on for a croped image"""
@@ -114,7 +108,7 @@ def load_dataset(size):
                     numpy_pic = cv2.cvtColor(numpy_pic, cv2.COLOR_BGR2RGB)
                     image = crop_picture(numpy_pic, size)
                     if image != None:
-                        #numpy_pic = image[0]
+                        numpy_pic = image[0]
                         label = recalculate_landmarks(image[1],
                                                       LABELS.loc[LABELS['name']
                                                                  == picture.split(".")[0]]
@@ -138,6 +132,7 @@ def load_dataset(size):
                     numpy_pic = cv2.cvtColor(numpy_pic, cv2.COLOR_BGR2RGB)
                     image = crop_picture(numpy_pic, size)
                     if image != None:
+                        numpy_pic = image[0]
                         label = recalculate_landmarks(image[1],
                                                       LABELS.loc[LABELS['name']
                                                                  == picture.split(".")[0]]
@@ -182,10 +177,10 @@ def main():
     args = PARSER.parse_args()
     dataset = gen_dataset(args.size)
     print("saving sets")
-    np.save("train_set.npy", np.array(dataset["train_set"], dtype="float32"))
-    np.save("train_labels.npy", np.asarray(dataset["train_labels"], dtype="float32"))
-    np.save("test_set.npy", np.array(dataset["test_set"], dtype="float32"))
-    np.save("test_labels.npy", np.asarray(dataset["test_labels"], dtype="float32"))
+    np.save("train_set.npy", np.asarray(dataset["train_set"], dtype='float32'))
+    np.save("train_labels.npy", np.asarray(dataset["train_labels"], dtype='float32'))
+    np.save("test_set.npy", np.array(dataset["test_set"], dtype='float32'))
+    np.save("test_labels.npy", np.asarray(dataset["test_labels"], dtype='float32'))
 
 
 
