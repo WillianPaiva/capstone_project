@@ -52,18 +52,15 @@ def get_flip(image, label, direction, width, heigth):
 
 def crop_picture(image, size):
     """crop the picture around the face with a square of a given size"""
-    faces = DETECTOR(image, 1)
+    faces = DETECTOR(image, 0)
     # all trainign and testing images has just 1 peson so any number diffrent
     # of one means dlib missclassified it
     if len(faces) != 1:
         return None
     else:
         for _, positions in enumerate(faces):
-            box_size = positions.bottom() - positions.top()
-            change = int((size - box_size)/2)
-
-            top = positions.top()-change
-            left = positions.left()-change
+            top = positions.top()
+            left = positions.left()
             bottom = top + size
             right = left + size
             box = {"top":top,
@@ -72,8 +69,7 @@ def crop_picture(image, size):
                    "right":right}
             constant= cv2.copyMakeBorder(image,0,50,0,50,cv2.BORDER_CONSTANT)
             res = constant[top:bottom, left:right]
-            if res.shape != (299,299,3):
-                print(res.shape)
+            if res.shape != (size,size,3):
                 return None
             return ( res, box)
 
@@ -176,11 +172,11 @@ PARSER = argparse.ArgumentParser(description='generate dataset')
 def main():
     args = PARSER.parse_args()
     dataset = gen_dataset(args.size)
+    size = args.size
     print("saving sets")
-    np.save("train_set.npy", np.asarray(dataset["train_set"], dtype='float32'))
-    np.save("train_labels.npy", np.asarray(dataset["train_labels"], dtype='float32'))
-    np.save("test_set.npy", np.array(dataset["test_set"], dtype='float32'))
-    np.save("test_labels.npy", np.asarray(dataset["test_labels"], dtype='float32'))
+    np.save("train_labels"+size+".npy", np.asarray(dataset["train_labels"], dtype='float32'))
+    np.save("test_set"+size+".npy", np.array(dataset["test_set"], dtype='float32'))
+    np.save("test_labels"+size+".npy", np.asarray(dataset["test_labels"], dtype='float32'))
 
 
 
