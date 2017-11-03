@@ -172,8 +172,9 @@ PARSER = argparse.ArgumentParser(description='generate dataset')
 def main():
     args = PARSER.parse_args()
     dataset = gen_dataset(args.size)
-    size = args.size
+    size = str(args.size)
     print("saving sets")
+    np.save("train_set"+size+".npy", np.array(dataset["train_set"], dtype='float32'))
     np.save("train_labels"+size+".npy", np.asarray(dataset["train_labels"], dtype='float32'))
     np.save("test_set"+size+".npy", np.array(dataset["test_set"], dtype='float32'))
     np.save("test_labels"+size+".npy", np.asarray(dataset["test_labels"], dtype='float32'))
