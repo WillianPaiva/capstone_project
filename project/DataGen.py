@@ -20,17 +20,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import shutil
-import os
-from subprocess import call
-import math
 import argparse
-import pandas as pd
+import os
+import shutil
+from subprocess import call
+
 import numpy as np
+import pandas as pd
+
 import cv2
 import dlib
 import progressbar
-import numpy as np
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.resnet50 import ResNet50
 from keras.applications.vgg16 import VGG16
@@ -40,10 +40,16 @@ DETECTOR = dlib.get_frontal_face_detector()
 PROGBAR = progressbar.ProgressBar(redirect_sdtdout=True)
 PARSER = argparse.ArgumentParser(description='generate dataset')
 
+
 def decompress_dataset():
     """this function will call a bash script that create the
     folders and decompress all the files"""
-    call(['bash', 'untarData.sh'])
+
+    if not os.path.exists("./decompressed_dataset"):
+        call(['bash', 'untarData.sh'])
+        split_dataset()
+    else:
+        print("data already decompressed")
 
 
 def split_dataset():
@@ -97,8 +103,11 @@ def crop_image(image, size):
         return None
     else:
         for _, positions in enumerate(faces):
-            top = positions.top()
-            left = positions.left()
+            size_change = int((size -
+                               (positions.bottom() -
+                                positions.top()))/2)
+            top = positions.top() - size_change
+            left = positions.left() - size_change
             bottom = top + size
             right = left + size
             box = {"top": top,
@@ -108,14 +117,15 @@ def crop_image(image, size):
 
             constant = cv2.copyMakeBorder(image,
                                           0,
-                                          50,
+                                          250,
                                           0,
-                                          50,
+                                          250,
                                           cv2.BORDER_CONSTANT)
 
             res = constant[top:bottom, left:right]
             if res.shape != (size, size, 3):
                 return None
+
             return (res, box)
 
 
@@ -132,7 +142,7 @@ def get_label(name, labels):
     return labels.loc[labels['name'] == name].values.tolist()[0][2:]
 
 
-def creae_dataset(size, flip_horizontal=True, flip_vertical=True):
+def create_dataset(size, flip_horizontal=True, flip_vertical=True):
     """generate the data-set with data augmentation and
     returns the the repective train and test set"""
 
@@ -233,27 +243,24 @@ def save_dataset(dataset, name):
                                         dtype='float32'),
                         test_y=np.asarray(dataset["test_labels"],
                                           dtype='float32'))
+    print(os.path.getsize(name))
 
 
-def inception_bottleneck(nameIn, nameOut):
+def inception_bottleneck(data, nameOut):
     model = InceptionV3(weights='imagenet')
-    train_data = np.load(nameIn)
-    np.save(nameOut, model.predict(train_data, verbose=1))
+    np.save(nameOut, model.predict(data, verbose=1))
 
 
-def resnet_bottleneck(nameIn, nameOut):
+def resnet_bottleneck(data, nameOut):
     model = ResNet50(weights='imagenet')
-    train_data = np.load(nameIn)
-    np.save(nameOut, model.predict(train_data, verbose=1))
+    np.save(nameOut, model.predict(data, verbose=1))
 
 
-def vgg16_bottleneck(nameIn, nameOut):
+def vgg16_bottleneck(data, nameOut):
     model = VGG16(weights='imagenet')
-    train_data = np.load(nameIn)
-    np.save(nameOut, model.predict(train_data, verbose=1))
+    np.save(nameOut, model.predict(data, verbose=1))
 
 
-def VGG19_bottleneck(nameIn, nameOut):
+def VGG19_bottleneck(data, nameOut):
     model = VGG19(weights='imagenet')
-    train_data = np.load(nameIn)
-    np.save(nameOut, model.predict(train_data, verbose=1))
+    np.save(nameOut, model.predict(data, verbose=1))
