@@ -27,3 +27,7 @@ project/decompressed_dataset/e/jpg/
 project/decompressed_dataset/e_test/jpg/
 
 project/decompressed_dataset/c_test/jpg/
+
+project/Graph/
+
+project/__pycache__/
