@@ -1,0 +1,55 @@
+\begin{thebibliography}{1}
+
+\bibitem{ekman1977facial}
+Paul Ekman and Wallace~V Friesen.
+\newblock Facial action coding system.
+\newblock 1977.
+
+\bibitem{edwards1998face}
+Gareth~J Edwards, Timothy~F Cootes, and Christopher~J Taylor.
+\newblock Face recognition using active appearance models.
+\newblock In {\em European conference on computer vision}, pages 581--595.
+  Springer, 1998.
+
+\bibitem{matthews2004active}
+Iain Matthews and Simon Baker.
+\newblock Active appearance models revisited.
+\newblock {\em International journal of computer vision}, 60(2):135--164, 2004.
+
+\bibitem{bulat2017far}
+Adrian Bulat and Georgios Tzimiropoulos.
+\newblock How far are we from solving the 2d \& 3d face alignment problem? (and
+  a dataset of 230,000 3d facial landmarks).
+\newblock In {\em International Conference on Computer Vision}, 2017.
+
+\bibitem{Milborrow10}
+S.~Milborrow, J.~Morkel, and F.~Nicolls.
+\newblock {The MUCT Landmarked Face Database}.
+\newblock {\em Pattern Recognition Association of South Africa}, 2010.
+\newblock \url{http://www.milbo.org/muct}.
+
+\bibitem{milborrow2009active}
+Stephen Milborrow.
+\newblock Active shape models with stasm.
+\newblock {\em Stasm Version}, 3, 2009.
+
+\bibitem{krizhevsky2012imagenet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1097--1105, 2012.
+
+\bibitem{szegedy2016rethinking}
+Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jon Shlens, and Zbigniew
+  Wojna.
+\newblock Rethinking the inception architecture for computer vision.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, pages 2818--2826, 2016.
+
+\bibitem{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 770--778, 2016.
+
+\end{thebibliography}

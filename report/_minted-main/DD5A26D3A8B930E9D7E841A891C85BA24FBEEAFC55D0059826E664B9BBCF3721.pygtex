@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{prices} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}apple\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mf}{0.40}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}banana\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mf}{0.50}\PYG{p}{\PYGZcb{}}
+\PYG{n}{my\PYGZus{}purchase} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}apple\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{1}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}banana\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{6}\PYG{p}{\PYGZcb{}}
+\PYG{n}{grocery\PYGZus{}bill} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{prices}\PYG{p}{[}\PYG{n}{fruit}\PYG{p}{]} \PYG{o}{*} \PYG{n}{my\PYGZus{}purchase}\PYG{p}{[}\PYG{n}{fruit}\PYG{p}{]}
+                   \PYG{k}{for} \PYG{n}{fruit} \PYG{o+ow}{in} \PYG{n}{my\PYGZus{}purchase}\PYG{p}{)}
+\PYG{k}{print} \PYG{l+s+s1}{\PYGZsq{}I owe the grocer \PYGZdl{}}\PYG{l+s+si}{\PYGZpc{}.2f}\PYG{l+s+s1}{\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{n}{grocery\PYGZus{}bill}
+\end{Verbatim}
