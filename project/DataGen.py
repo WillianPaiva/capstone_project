@@ -64,6 +64,7 @@ def split_dataset():
             os.makedirs(directory)
         for _, _, filelist in os.walk(from_directory):
             if filelist[0] != '.DS_Store':
+                filelist.sort()
                 for picture in filelist[:249]:
                     # move the file to the new path
                     shutil.move(from_directory+'/'+picture,
