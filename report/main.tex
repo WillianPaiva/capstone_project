@@ -1,4 +1,4 @@
-% Created 2017-11-30 Thu 13:59
+% Created 2017-12-04 Mon 16:34
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -75,9 +75,11 @@ Ver Valem Paiva \textsc{Willian}\\
 \newpage
 
 
+\section{Definition}
+\label{sec:org6fa9d3d}
 
-\section{introduction}
-\label{sec:org211dc5a}
+\subsection{introduction}
+\label{sec:org5235ca7}
 
 For a long time work in facial recognition has being done and one of the key
 points of it is face alignment as it poses its own challenge.
@@ -107,9 +109,33 @@ As the DLIB model has difficulty on recognizing points on faces by the side
 view, this project focus on this problem and does its best to tackle this
 problem.
 
+\subsection{Problem Statement}
+\label{sec:orgd6a46cc}
 
-\section{Dataset}
-\label{sec:orgdbf23f6}
+The problem in question take a image as input (the format and details will be
+discussed on the dataset section), and by using a regression model to
+calculate the position of the face landmarks on the given image.
+
+For that the models used to tackle this problem will output 152 numbers, where
+each number ranges from 0 to 1 and represents the X and Y of each of the 76
+landmarks. 
+
+The expected result is a model capable precisely recognize the set of
+landmarks.
+
+
+\subsection{Metrics}
+\label{sec:orgfa6d0b9}
+
+The results of this project was avaliated using the Mean Squared Error (MSE) 
+this metrics was chosen as it is standard function for regression problems
+and it fits well problem in question. 
+
+\section{Analysis}
+\label{sec:orga8c8fbe}
+
+\subsection{Dataset}
+\label{sec:org2d8f80a}
 In this study the MUCT Face Database \cite{Milborrow10} was used
 this dataset consists of pictures (resolution 480x640) taken from 276 subjects
 using 5 cameras in different angles and light conditions (total of 3755
@@ -163,7 +189,7 @@ this folder
 
 
 \subsection{Split the training and testing sets}
-\label{sec:org1b3e9ff}
+\label{sec:org5af3151}
 
 As this dataset is composed by multiple images of the same subject the
 division of sets for training and testing could not be done at a random way
@@ -177,7 +203,7 @@ The function "decompress\(_{\text{dataset}}\)" on the \emph{DataGen.py} takes ca
 decompressing the data and splitting the training and testing set. 
 
 \subsection{Data Analyses}
-\label{sec:org0a7b42f}
+\label{sec:org1cfc347}
 
 lets start by looking at one image from the database those images are on the
 format of 640x480. 
@@ -222,7 +248,7 @@ the process of cropping the image brings 2 advantages to the project:
 \end{itemize}
 
 \subsection{Data Augmentation}
-\label{sec:orge7749bf}
+\label{sec:orgc7d9234}
 
 As explained before there is no cameras on the left but we can mirror the
 right images, starting from that we will implement a some data augmentation 
@@ -240,8 +266,61 @@ lets see the result:
 By applying this to all images we finish with a total of 3723 testing images
 and 7497 training images  
 
-\section{Models}
-\label{sec:org7dbc137}
+\subsection{Algorithms and Techniques}
+\label{sec:org3a05739}
+
+To tackle this problem 2 possibilities was taken in consideration:
+
+\begin{enumerate}
+\item The use of a fully convolutional network (FCN) and map the points by
+returning the pixel of a landmarks
+\item The use of a convolutional neural network (CNN) with a regression output
+returning the coordinates of the landmarks
+\end{enumerate}
+
+While the 2 approaches are valid this project focused on the second one as
+the first would require more experience and knowledge to do it.
+
+The project is composed of 2 parts:
+\begin{enumerate}
+\item The CNN layer.
+\item The regression output.
+\end{enumerate}
+
+All the models have 1 thing in common the \textbf{output} all the models have a
+152 neurons dense layer using linear activation, used to predict the
+coordinate of the landmarks on the image.
+In the other hand the CNN part of every model is different, here the approach
+was to develop a CNN capable to pass a precise information about the shape in
+the image to the output layer so we could have a precise landmark on the
+image. 
+
+
+\subsection{Benchmark}
+\label{sec:orgbe13fba}
+
+To bench mark this project a model using a CNN created from scratch was used 
+and the model and the results of this model can be seen at the \ref{sec:org046c0e7} \textbf{CNN from scratch} in the \ref{sec:org01aec23} \textbf{Implementation} section of
+this report.  
+
+
+\section{Methodology}
+\label{sec:orgf42334f}
+
+\subsection{Data Preprocessing}
+\label{sec:org40651da}
+
+Many steps of preprocessing have being taken and have being discussed on the
+\ref{sec:org2d8f80a} section being then:
+\begin{itemize}
+\item Split of the data discussed at the \ref{sec:org5af3151}
+\textbf{Split the training and testing sets} section
+\item Image cropping detailed at the \ref{sec:org1cfc347} \textbf{Data Analyses} section
+\item Data Augmentation described on the \ref{sec:orgc7d9234} \textbf{Data Augmentation} section
+\item 
+\end{itemize}
+\subsection{Implementation}
+\label{sec:org01aec23}
 
 For this project many different approaches have being taken and it will be
 presented here the best outcome of each "kind" of approaches like:
@@ -278,8 +357,8 @@ best loss weights on a \emph{hdf5} file
 
 \pagebreak
 
-\subsection{CNN from scratch}
-\label{sec:org73c2e53}
+\subsubsection{CNN from scratch}
+\label{sec:org046c0e7}
 
 This CNN started with a model based on the AlexNet \cite{krizhevsky2012imagenet} 
 \begin{center}
@@ -313,11 +392,12 @@ for improvement. but at this point of the project it started to get expensive
 to keep using the cloud machine to train and there was yet some other methods
 to try out.  
 
-\subsection{Inception transfer learning}
-\label{sec:org439d68d}
+\subsubsection{Inception transfer learning}
+\label{sec:org04d8222}
 
-\subsubsection{bottleneck}
-\label{sec:org2909d33}
+\begin{enumerate}
+\item bottleneck
+\label{sec:org25e51c5}
 
 The next step was to use transfer learning, by using the inceptionV3
 \cite{szegedy2016rethinking}, the first approach as to create bottleneck files
@@ -354,8 +434,8 @@ And the results are far from good, worst then the previous model.
 \pagebreak
 
 
-\subsubsection{Retrain}
-\label{sec:orgdbb0adb}
+\item Retrain
+\label{sec:orgecb06e1}
 
 The next step here is to keep using the transfer learning from inception but
 give a bit of more room for improvement by training respectively the 2 last
@@ -372,7 +452,7 @@ convolutional blocks of the inception and the 4 last ones:
 
 \begin{enumerate}
 \item \textbf{2 blocks results}
-\label{sec:orge4022a3}
+\label{sec:org395fcaa}
 
 \centerline{\includegraphics[height=9cm]{./images/incep249Loss.png}}
 \centerline{\includegraphics[height=9cm]{./images/incep249res.png}}
@@ -380,7 +460,7 @@ convolutional blocks of the inception and the 4 last ones:
 \pagebreak
 
 \item \textbf{4 blocks results}
-\label{sec:orgfd2fa35}
+\label{sec:org6e232b6}
 
 \centerline{\includegraphics[height=9cm]{./images/incep197Loss.png}}
 \centerline{\includegraphics[height=9cm]{./images/incep197res.png}}
@@ -393,10 +473,11 @@ testing images, but once we increase the number of training layers by using
 the first 4 block, the early stopping triggers 70 epochs before and while
 the results look good, however, it is worst then the model with 2 blocks.
 \end{enumerate}
+\end{enumerate}
 
 
-\subsection{ResNet50 transfer learning}
-\label{sec:orgeadfc91}
+\subsubsection{ResNet50 transfer learning}
+\label{sec:org12be8db}
 Here the same approach that as used with Inception is used with the ResNet50 \cite{he2016deep}  
 model, but as the ResNet50 uses images with format 224x224 and we have images
 with 299x299, while we could crop the images it is not a good solution as it
@@ -415,7 +496,7 @@ another that trains 2 convolutional blocks like:
 
 \begin{enumerate}
 \item \textbf{0 blocks results}
-\label{sec:org4ba9ab8}
+\label{sec:org7f6063b}
 
 \centerline{\includegraphics[height=9cm]{./images/resnet0loss.png}}
 \centerline{\includegraphics[height=9cm]{./images/resnet0res.png}}
@@ -423,7 +504,7 @@ another that trains 2 convolutional blocks like:
 
 \pagebreak
 \item \textbf{2 blocks results}
-\label{sec:orge1bf18c}
+\label{sec:orge5004e1}
 
 \centerline{\includegraphics[height=9cm]{./images/resnet2loss.png}}
 \centerline{\includegraphics[height=9cm]{./images/resnet2res.png}}
@@ -434,8 +515,64 @@ them the inception but yet it wasn't satisfactory in the other hand when
 retraining 2 block it showed a really promising result
 \end{enumerate}
 
+
+\subsection{Refinement}
+\label{sec:orgb8026d3}
+while the results presented here are the best ones for each of the models 
+many trials have been done the first tuning was working with the learning
+and the optmizers and here is what was what was used:
+\begin{enumerate}
+\item SGD
+\label{sec:org02772c1}
+all results were poor with this optimizer
+
+\item RMSprop
+\label{sec:orgf1e329a}
+that was the second optimizer tried it was a bit trick as the results were
+showing all the points accumulating near of the center of the image like:
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./images/RMSprop.png}
+\end{center}
+
+the approach to fix it was to increase the learning rate to 0.1 and use a
+learning rate decay until 0.0001 while that give better results, further
+analyses showed that wasn't the best approach
+
+\item Adam
+\label{sec:org618d911}
+this is the optimizer used on every model with exception of the benchmark
+model and while the reduction of a learning rate showed improvement on some
+other tests it was taking too long to train and exhausting the resources
+for this project and we sticked with the Keras default learning rate
+
+\item Nadam
+\label{sec:org3d5913c}
+This optimizer as used for the benchmark model and showed good results (no
+tuning was made).
+\end{enumerate}
+
+
+
 \section{Results}
-\label{sec:org13cda33}
+\label{sec:org206d1d0}
+
+\subsection{Model evaluation and Validation}
+\label{sec:orgfc837ac}
+After many trials the model that did best was the model based on the ResNet50
+retraining 2 blocks. this model not just had a good results as it takes a
+reasonable time to train. but the results steal not satisfactory as it does
+generalize enough on the test data it doesn't performs really well on data
+different from the on on the dataset.That is probably because all the images
+has the same background and this cam affect the outcome.
+At the end the model isn't a trustworthy model and some improvement has to be
+done. 
+
+
+
+
+\subsection{Justification}
+\label{sec:org814b232}
 
 after all those tests and trials we can make a loss comparison for each model
 like:
@@ -453,15 +590,44 @@ resnet50 2 blocks & 0.00005033 & 0.003779\\
 \end{tabular}
 \end{center}
 
-by doing this comparison we see that the ResNet50 model has the most
-promising results and probably is possible to get even better results by
-training more layers or even making some adjustments, but as this kind of
-training demands a lot of resources and keep the servers running started to
-get out of the budget the tests and development where halted at this point 
+By doing this comparison we see that the ResNet50 model has the most
+promising results.
+Probably is possible to get even better results by training more layers or
+even making some adjustments.
+Another step is collect more datasets to combine with the MUCT dataset to
+improve the models generalization.
+But as this kind of training demands a lot of resources and keep the servers running started to get out of the budget the
+tests and development where halted at this point 
 
 \section{Conclusion}
-\label{sec:org1687a99}
+\label{sec:org1246403}
 
+This project throws in the spotlight a recurrent problem in the world of
+machine learning \emph{the quality of the data} this is the most important detail
+and the work done here shows how it impacts.
+As pointed before we have a model that is capable to return a fairly accurate
+landmarks on pictures that it haven't seen but if the picture has the same
+\emph{context} (i mean from the same dataset , the same background\ldots{}) once it
+deviate from this the results are poor. and that is a problem that can be
+fixed by using some other datasets. as we can see for example in the project
+of  Adrian Bulat on recognizing 3D facial landmarks \cite{bulat2017far} it uses
+more than 5 different datasets to reach an acceptable result.
+
+\subsection{Reflection}
+\label{sec:orgb7ee482}
+
+Different that one outsider would think the challenge of this project is not
+to develop a machine learning but to understand the data you are working
+with, preparing the data to maximize the result.
+Mastering the data being used is more important them knowing the Machine
+learning / Deep learning structure you are going to use at the end this part
+is a lot of try and error. 
+The second challenge is process power power convolutional networks really
+bring the home PCs to its limits and oblige us to use cloud solutions. 
+
+
+\subsection{Improvement}
+\label{sec:org27b001a}
 This project shows that the approach used is correct and that with more
 resources is possible to delivery a reliable face alignment. 
 The next step on such a project would be by starting by using some other
@@ -472,7 +638,7 @@ And also by working on the hyper-parameters for the ResNet50 network and
 improving the results that would a start for getting a reliable face alignment 
 
 \section{Hardware}
-\label{sec:orgbf2996e}
+\label{sec:org3ed0c2d}
 
 For information propose all the training was executed on a virtual server
 hosted on google cloud

@@ -58,98 +58,120 @@ Ver Valem Paiva \textsc{Willian}\\
 #+END_EXPORT
 
 
-
-* introduction 
-
-   For a long time work in facial recognition has being done and one of the key
-   points of it is face alignment as it poses its own challenge.
-   And the main tool used for the job is OpenCV which is used with DLIB to
-   recognize Facial landmarks.
-
-   The automatic recognition of landmarks is essential to be able to classify
-   facial expressions, or face tracking, face animation, and even 3D face
-   modeling.
-
-   For example to classify facial expressions it is necessary to classify
-   Facial Action Units also known as FACS cite:ekman1977facial, which in turn
-   needs a proper face alignment.
-
-   The problem of face alignment is among the most popular in the field of
-   computer vision and today we have many different implementations to
-   automatically recognize facial landmarks on images.
-   The most known is the Active Appearance Model (AAM)
-   cite:edwards1998face,matthews2004active.
- 
-   But today we also some good results using Deep learning to achieve the
-   results for example the work done by Adrian Bulat on recognizing 3D facial
-   landmarks cite:bulat2017far that shows remarkable results and is implemented
-   in /Torch/ a framework for *LUA*. 
-   
-   As the DLIB model has difficulty on recognizing points on faces by the side
-   view, this project focus on this problem and does its best to tackle this
-   problem.
-   
-
-* Dataset
-  In this study the MUCT Face Database cite:Milborrow10 was used
-  this dataset consists of pictures (resolution 480x640) taken from 276 subjects
-  using 5 cameras in different angles and light conditions (total of 3755
-  images) like the image below: 
+* Definition
   
-  #+CAPTION: There is no images on the left but they can be reproduced by mirroring the right side
-  [[./images/muct-views-lores.jpg]]
+** introduction 
+
+    For a long time work in facial recognition has being done and one of the key
+    points of it is face alignment as it poses its own challenge.
+    And the main tool used for the job is OpenCV which is used with DLIB to
+    recognize Facial landmarks.
+
+    The automatic recognition of landmarks is essential to be able to classify
+    facial expressions, or face tracking, face animation, and even 3D face
+    modeling.
+
+    For example to classify facial expressions it is necessary to classify
+    Facial Action Units also known as FACS cite:ekman1977facial, which in turn
+    needs a proper face alignment.
+
+    The problem of face alignment is among the most popular in the field of
+    computer vision and today we have many different implementations to
+    automatically recognize facial landmarks on images.
+    The most known is the Active Appearance Model (AAM)
+    cite:edwards1998face,matthews2004active.
+ 
+    But today we also some good results using Deep learning to achieve the
+    results for example the work done by Adrian Bulat on recognizing 3D facial
+    landmarks cite:bulat2017far that shows remarkable results and is implemented
+    in /Torch/ a framework for *LUA*. 
    
-  Each picture is manually coded with 76 facial landmark like:
-  [[./images/landmarks.jpg]]
+    As the DLIB model has difficulty on recognizing points on faces by the side
+    view, this project focus on this problem and does its best to tackle this
+    problem.
+   
+** Problem Statement  
+   
+    The problem in question take a image as input (the format and details will be
+    discussed on the dataset section), and by using a regression model to
+    calculate the position of the face landmarks on the given image.
+    
+    For that the models used to tackle this problem will output 152 numbers, where
+    each number ranges from 0 to 1 and represents the X and Y of each of the 76
+    landmarks. 
+    
+    The expected result is a model capable precisely recognize the set of
+    landmarks.
+    
+   
+** Metrics
+   
+   The results of this project was avaliated using the Mean Squared Error (MSE) 
+   this metrics was chosen as it is standard function for regression problems
+   and it fits well problem in question. 
+   
+* Analysis   
+  
+** Dataset
+   In this study the MUCT Face Database cite:Milborrow10 was used
+   this dataset consists of pictures (resolution 480x640) taken from 276 subjects
+   using 5 cameras in different angles and light conditions (total of 3755
+   images) like the image below: 
+  
+   #+CAPTION: There is no images on the left but they can be reproduced by mirroring the right side
+   [[./images/muct-views-lores.jpg]]
+   
+   Each picture is manually coded with 76 facial landmark like:
+   [[./images/landmarks.jpg]]
  
  
-  The landmarks are saved in to 4 different file formats
+   The landmarks are saved in to 4 different file formats
 
-   - muct76.shape       shape file cite:milborrow2009active  
-   - muct76.rda         R data file (www.r-project.org/
-   - muct76.csv         comma separated values
-   - muct76-opencv.csv  comma separated values in OpenCV coords (0,0 at top left).
-
-
-   the coordinate system in these files is the one used by Stasm (i.e. the
-   origin 0,0 is the center of the image, x increases as you move right, y
-   increases as you move up).  The exception is muct76-opencv.csv, where the
-   format is the "OpenCV format" (i.e. the origin 0,0 is at the top left, x
-   increases as you move left, y increases as you move down). 
-
-   Unavailable points are marked with coordinates 0,0 (regardless of the
-   coordinate system mentioned above).  "Unavailable points" are points
-   that are obscured by other facial features.  (This refers to landmarks
-   behind the nose or side of the face -- the position of such landmarks
-   cannot easily be estimated by human landmarkers -- in contrast, the
-   position of landmarks behind hair or glasses was estimated by the
-   landmarkers).  
-
-   So any points with the coordinates 0,0 should be ignored.  Unavailable
-   points appear only in camera views b and c.  
-
-   the subjects 247 and 248 are identical twins.
-
-   The data set is available via [[https://github.com/StephenMilborrow/muct][github]] or it is also a submodule on this
-   project and by recursively initializing or cloning the data can be found in 
-   folder project/dataset that is the recommended way as the scripts depend on
-   this folder 
-  # the data set was splited betwin a train and test 
-   # When talking about the train and testing split I will split the data into
-   # train 70% and test 30% but it cannot be a random split as we have many images
-   # of a same subject.
-   # So to be sure the test set is well done the split has to be node at a subject
-   # level so the same person cannot be found on test and train.
-
-   # The choice of this dataset is made because it has a reasonable size to train
-   # on personal computers and moreover it has large room for data augmentation
-   # if necessary
-   # The focus on using this data set is that it provides data
-   # to have a better result when the face is in the side view.
+    - muct76.shape       shape file cite:milborrow2009active  
+    - muct76.rda         R data file (www.r-project.org/
+    - muct76.csv         comma separated values
+    - muct76-opencv.csv  comma separated values in OpenCV coords (0,0 at top left).
 
 
-   # The dataset is public available via github on the following link
-   # https://github.com/StephenMilborrow/muct
+    the coordinate system in these files is the one used by Stasm (i.e. the
+    origin 0,0 is the center of the image, x increases as you move right, y
+    increases as you move up).  The exception is muct76-opencv.csv, where the
+    format is the "OpenCV format" (i.e. the origin 0,0 is at the top left, x
+    increases as you move left, y increases as you move down). 
+
+    Unavailable points are marked with coordinates 0,0 (regardless of the
+    coordinate system mentioned above).  "Unavailable points" are points
+    that are obscured by other facial features.  (This refers to landmarks
+    behind the nose or side of the face -- the position of such landmarks
+    cannot easily be estimated by human landmarkers -- in contrast, the
+    position of landmarks behind hair or glasses was estimated by the
+    landmarkers).  
+
+    So any points with the coordinates 0,0 should be ignored.  Unavailable
+    points appear only in camera views b and c.  
+
+    the subjects 247 and 248 are identical twins.
+
+    The data set is available via [[https://github.com/StephenMilborrow/muct][github]] or it is also a submodule on this
+    project and by recursively initializing or cloning the data can be found in 
+    folder project/dataset that is the recommended way as the scripts depend on
+    this folder 
+   # the data set was splited betwin a train and test 
+    # When talking about the train and testing split I will split the data into
+    # train 70% and test 30% but it cannot be a random split as we have many images
+    # of a same subject.
+    # So to be sure the test set is well done the split has to be node at a subject
+    # level so the same person cannot be found on test and train.
+
+    # The choice of this dataset is made because it has a reasonable size to train
+    # on personal computers and moreover it has large room for data augmentation
+    # if necessary
+    # The focus on using this data set is that it provides data
+    # to have a better result when the face is in the side view.
+
+
+    # The dataset is public available via github on the following link
+    # https://github.com/StephenMilborrow/muct
 
  
 ** Split the training and testing sets 
@@ -214,181 +236,270 @@ Ver Valem Paiva \textsc{Willian}\\
    By applying this to all images we finish with a total of 3723 testing images
    and 7497 training images  
    
-* Models 
+** Algorithms and Techniques
   
-  For this project many different approaches have being taken and it will be
-  presented here the best outcome of each "kind" of approaches like:
+   To tackle this problem 2 possibilities was taken in consideration:
+   
+   1. The use of a fully convolutional network (FCN) and map the points by
+      returning the pixel of a landmarks
+   2. The use of a convolutional neural network (CNN) with a regression output
+      returning the coordinates of the landmarks
+      
+   While the 2 approaches are valid this project focused on the second one as
+   the first would require more experience and knowledge to do it.
+   
+   The project is composed of 2 parts:
+   1. The CNN layer.
+   2. The regression output.
   
-  - A CNN created from scratch
-  - Inception transfer learning
-  - ResNet50 transfer learning
+   All the models have 1 thing in common the *output* all the models have a
+   152 neurons dense layer using linear activation, used to predict the
+   coordinate of the landmarks on the image.
+   In the other hand the CNN part of every model is different, here the approach
+   was to develop a CNN capable to pass a precise information about the shape in
+   the image to the output layer so we could have a precise landmark on the
+   image. 
+
+   
+** Benchmark 
+   
+   To bench mark this project a model using a CNN created from scratch was used 
+   and the model and the results of this model can be seen at the [[CNN from
+   scratch]] *CNN from scratch* in the [[Implementation]] *Implementation* section of
+   this report.  
+   
+
+* Methodology   
+
+** Data Preprocessing 
+   
+   Many steps of preprocessing have being taken and have being discussed on the
+   [[Dataset]] section being then:
+   - Split of the data discussed at the [[Split the training and testing sets]]
+     *Split the training and testing sets* section
+   - Image cropping detailed at the [[Data Analyses]] *Data Analyses* section
+   - Data Augmentation described on the [[Data Augmentation]] *Data Augmentation* section
+   - 
+** Implementation
   
-  All the models have being trained in a cloud server for performance wise and
-  saved to later study.
+   For this project many different approaches have being taken and it will be
+   presented here the best outcome of each "kind" of approaches like:
   
-  The metrics used to observe the performance of every model was the mean square
-  error (MSE)
+   - A CNN created from scratch
+   - Inception transfer learning
+   - ResNet50 transfer learning
   
-  The models code can be found on the file /Models.py/.
+   All the models have being trained in a cloud server for performance wise and
+   saved to later study.
   
-  The models use a /"npz"/ file that can be generated via by using the function :
-  #+BEGIN_SRC python
-     DataGen.save_dataset(DataGen.create_dataset(size, True, True), "outputName")
-  #+END_SRC
+   The metrics used to observe the performance of every model was the mean square
+   error (MSE)
   
-  And for the inception transfer learning it uses a bottleneck file that can be
-  generated with the function:
+   The models code can be found on the file /Models.py/.
   
-  #+BEGIN_SRC python 
-    DataGen.inception_bottleneck(<npz file>, "outputName")
-  #+END_SRC
+   The models use a /"npz"/ file that can be generated via by using the function :
+   #+BEGIN_SRC python
+      DataGen.save_dataset(DataGen.create_dataset(size, True, True), "outputName")
+   #+END_SRC
   
-  every model was implemented using early stopping, TensorBoard and saves the
-  best loss weights on a /hdf5/ file   
+   And for the inception transfer learning it uses a bottleneck file that can be
+   generated with the function:
+  
+   #+BEGIN_SRC python 
+     DataGen.inception_bottleneck(<npz file>, "outputName")
+   #+END_SRC
+  
+   every model was implemented using early stopping, TensorBoard and saves the
+   best loss weights on a /hdf5/ file   
 
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
  
-** CNN from scratch
+*** CNN from scratch
    
-   This CNN started with a model based on the AlexNet cite:krizhevsky2012imagenet 
-   [[./images/alexnet6.jpg]]
-   But we finished with a model as illustrated below:
-   #+CAPTION: the full size image can be found on the report/images/mymodel.png.  
-   [[./images/mymodel.png]]
+    This CNN started with a model based on the AlexNet cite:krizhevsky2012imagenet 
+    [[./images/alexnet6.jpg]]
+    But we finished with a model as illustrated below:
+    #+CAPTION: the full size image can be found on the report/images/mymodel.png.  
+    [[./images/mymodel.png]]
    
-   here is the learning curve from this model
-   [[./images/mymodelLoss.png]]
+    here is the learning curve from this model
+    [[./images/mymodelLoss.png]]
    
-   as we can see the learning curve for the training set was improving steadily
-   but for the testing set it starts to get worst  around the epoch 16 and the
-   early stopping is triggered at epoch 24 as it has no improvement.
+    as we can see the learning curve for the training set was improving steadily
+    but for the testing set it starts to get worst  around the epoch 16 and the
+    early stopping is triggered at epoch 24 as it has no improvement.
    
-   by taking the weights of the best loss and doing an inference on a set of
-   training images we get the following result: 
+    by taking the weights of the best loss and doing an inference on a set of
+    training images we get the following result: 
    
-   [[./images/mymodelTest.png]]
+    [[./images/mymodelTest.png]]
    
-   It is noticible that the result is not satisfactory but it has plenty of room
-   for improvement. but at this point of the project it started to get expensive
-   to keep using the cloud machine to train and there was yet some other methods
-   to try out.  
+    It is noticible that the result is not satisfactory but it has plenty of room
+    for improvement. but at this point of the project it started to get expensive
+    to keep using the cloud machine to train and there was yet some other methods
+    to try out.  
   
-** Inception transfer learning   
+*** Inception transfer learning   
 
-*** bottleneck
+**** bottleneck
    
-   The next step was to use transfer learning, by using the inceptionV3
-   cite:szegedy2016rethinking, the first approach as to create bottleneck files
-   from the inception and train a model with those outputs.
+    The next step was to use transfer learning, by using the inceptionV3
+    cite:szegedy2016rethinking, the first approach as to create bottleneck files
+    from the inception and train a model with those outputs.
    
-   As the previous model many models have being made and here is the best result 
-   found by using this method was the following:
+    As the previous model many models have being made and here is the best result 
+    found by using this method was the following:
    
-   #+CAPTION: the full size image can be found on the report/images/btn.png.  
-   [[./images/btn.png]]
+    #+CAPTION: the full size image can be found on the report/images/btn.png.  
+    [[./images/btn.png]]
    
-   In this model we took a different approach as just using the output of
-   Inception wasn't given good results 3 different inputs was used the squared
-   and the /sine/ of the inception output was also used in conjunction to the
-   normal output 
+    In this model we took a different approach as just using the output of
+    Inception wasn't given good results 3 different inputs was used the squared
+    and the /sine/ of the inception output was also used in conjunction to the
+    normal output 
    
-  [[./images/btnLoss.png]] 
+   [[./images/btnLoss.png]] 
   
-  The training of this model took 80 epochs before the early stopping was
-  triggered while the learning curve on the test set is better them the previous
-  model the loss is slightly bigger them the previous model:
+   The training of this model took 80 epochs before the early stopping was
+   triggered while the learning curve on the test set is better them the previous
+   model the loss is slightly bigger them the previous model:
 
-  [[./images/btnResult.png]]
+   [[./images/btnResult.png]]
   
-  And the results are far from good, worst then the previous model. 
+   And the results are far from good, worst then the previous model. 
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
 
   
-*** Retrain 
+**** Retrain 
     
-    The next step here is to keep using the transfer learning from inception but
-    give a bit of more room for improvement by training respectively the 2 last
-    convolutional blocks of the inception and the 4 last ones:
+     The next step here is to keep using the transfer learning from inception but
+     give a bit of more room for improvement by training respectively the 2 last
+     convolutional blocks of the inception and the 4 last ones:
     
-   #+CAPTION: 4 block(red) 2 block(black).  
-    [[./images/incep.png]]
+    #+CAPTION: 4 block(red) 2 block(black).  
+     [[./images/incep.png]]
 
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
 
-**** *2 blocks results*
+***** *2 blocks results*
 
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep249Loss.png}}
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep249res.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep249Loss.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep249res.png}}
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
 
-**** *4 blocks results*
+***** *4 blocks results*
 
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep197Loss.png}}
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep197res.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep197Loss.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/incep197res.png}}
      
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
-     as we can see it really improved the results by using the 2 first blocks after a
-     120 epochs we have a steady learning curve and we get a nice prediction on the
-     testing images, but once we increase the number of training layers by using
-     the first 4 block, the early stopping triggers 70 epochs before and while
-     the results look good, however, it is worst then the model with 2 blocks.
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
+      as we can see it really improved the results by using the 2 first blocks after a
+      120 epochs we have a steady learning curve and we get a nice prediction on the
+      testing images, but once we increase the number of training layers by using
+      the first 4 block, the early stopping triggers 70 epochs before and while
+      the results look good, however, it is worst then the model with 2 blocks.
 
     
-** ResNet50 transfer learning
-   Here the same approach that as used with Inception is used with the ResNet50 cite:he2016deep  
-   model, but as the ResNet50 uses images with format 224x224 and we have images
-   with 299x299, while we could crop the images it is not a good solution as it
-   was cutting out landmarks from some images. So the idea here is use the
-   ResNet50 with different input. 
+*** ResNet50 transfer learning
+    Here the same approach that as used with Inception is used with the ResNet50 cite:he2016deep  
+    model, but as the ResNet50 uses images with format 224x224 and we have images
+    with 299x299, while we could crop the images it is not a good solution as it
+    was cutting out landmarks from some images. So the idea here is use the
+    ResNet50 with different input. 
    
-   2 models was trained here one that don't train any layer from ResNet50 and
-   another that trains 2 convolutional blocks like:
+    2 models was trained here one that don't train any layer from ResNet50 and
+    another that trains 2 convolutional blocks like:
 
-   [[./images/resnet50.jpg]]
+    [[./images/resnet50.jpg]]
 
    
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
    
-**** *0 blocks results*
+***** *0 blocks results*
 
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet0loss.png}}
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet0res.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet0loss.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet0res.png}}
 
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
-**** *2 blocks results*
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
+***** *2 blocks results*
      
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet2loss.png}}
-     #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet2res.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet2loss.png}}
+      #+LaTeX: \centerline{\includegraphics[height=9cm]{./images/resnet2res.png}}
 
-  #+BEGIN_EXPORT latex
-  \pagebreak
-  #+END_EXPORT
-    as it is noticible using just the output of ResNet50 did give better results
-    them the inception but yet it wasn't satisfactory in the other hand when
-    retraining 2 block it showed a really promising result
-    
+   #+BEGIN_EXPORT latex
+   \pagebreak
+   #+END_EXPORT
+     as it is noticible using just the output of ResNet50 did give better results
+     them the inception but yet it wasn't satisfactory in the other hand when
+     retraining 2 block it showed a really promising result
+   
+   
+** Refinement
+   while the results presented here are the best ones for each of the models 
+   many trials have been done the first tuning was working with the learning
+   and the optmizers and here is what was what was used:
+**** SGD  
+     all results were poor with this optimizer
+     
+**** RMSprop 
+     that was the second optimizer tried it was a bit trick as the results were
+     showing all the points accumulating near of the center of the image like:
+     
+     [[./images/RMSprop.png]]
+     
+     the approach to fix it was to increase the learning rate to 0.1 and use a
+     learning rate decay until 0.0001 while that give better results, further
+     analyses showed that wasn't the best approach
+
+**** Adam
+     this is the optimizer used on every model with exception of the benchmark
+     model and while the reduction of a learning rate showed improvement on some
+     other tests it was taking too long to train and exhausting the resources
+     for this project and we sticked with the Keras default learning rate
+     
+**** Nadam 
+     This optimizer as used for the benchmark model and showed good results (no
+     tuning was made).
+
+
+ 
 * Results
   
+** Model evaluation and Validation
+   After many trials the model that did best was the model based on the ResNet50
+   retraining 2 blocks. this model not just had a good results as it takes a
+   reasonable time to train. but the results steal not satisfactory as it does
+   generalize enough on the test data it doesn't performs really well on data
+   different from the on on the dataset.That is probably because all the images
+   has the same background and this cam affect the outcome.
+   At the end the model isn't a trustworthy model and some improvement has to be
+   done. 
+   
+
+
+   
+** Justification
+
   after all those tests and trials we can make a loss comparison for each model
   like:
   
@@ -401,14 +512,41 @@ Ver Valem Paiva \textsc{Willian}\\
   | resnet50 0 blocks    |          0.01 |           0.013 |
   | resnet50 2 blocks    |    0.00005033 |        0.003779 |
 
-  by doing this comparison we see that the ResNet50 model has the most
-  promising results and probably is possible to get even better results by
-  training more layers or even making some adjustments, but as this kind of
-  training demands a lot of resources and keep the servers running started to
-  get out of the budget the tests and development where halted at this point 
-  
+  By doing this comparison we see that the ResNet50 model has the most
+  promising results.
+  Probably is possible to get even better results by training more layers or
+  even making some adjustments.
+  Another step is collect more datasets to combine with the MUCT dataset to
+  improve the models generalization.
+  But as this kind of training demands a lot of resources and keep the servers running started to get out of the budget the
+  tests and development where halted at this point 
+   
 * Conclusion 
   
+  This project throws in the spotlight a recurrent problem in the world of
+  machine learning /the quality of the data/ this is the most important detail
+  and the work done here shows how it impacts.
+  As pointed before we have a model that is capable to return a fairly accurate
+  landmarks on pictures that it haven't seen but if the picture has the same
+  /context/ (i mean from the same dataset , the same background...) once it
+  deviate from this the results are poor. and that is a problem that can be
+  fixed by using some other datasets. as we can see for example in the project
+  of  Adrian Bulat on recognizing 3D facial landmarks cite:bulat2017far it uses
+  more than 5 different datasets to reach an acceptable result.
+  
+** Reflection
+   
+   Different that one outsider would think the challenge of this project is not
+   to develop a machine learning but to understand the data you are working
+   with, preparing the data to maximize the result.
+   Mastering the data being used is more important them knowing the Machine
+   learning / Deep learning structure you are going to use at the end this part
+   is a lot of try and error. 
+   The second challenge is process power power convolutional networks really
+   bring the home PCs to its limits and oblige us to use cloud solutions. 
+  
+
+** Improvement 
   This project shows that the approach used is correct and that with more
   resources is possible to delivery a reliable face alignment. 
   The next step on such a project would be by starting by using some other
