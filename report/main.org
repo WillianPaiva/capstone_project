@@ -93,22 +93,43 @@ Ver Valem Paiva \textsc{Willian}\\
 ** Problem Statement  
    
     The problem in question take a image as input (the format and details will be
-    discussed on the dataset section), and by using a regression model to
+    discussed on the [[Dataset]] Dataset section), and by using a regression model to
     calculate the position of the face landmarks on the given image.
     
     For that the models used to tackle this problem will output 152 numbers, where
     each number ranges from 0 to 1 and represents the X and Y of each of the 76
     landmarks. 
     
+    Those models will be created using convolutional neural network as this type
+    of model is known for its efficiency on images  
+    
+    [[./images/pipeline.png]]
+    
+
     The expected result is a model capable precisely recognize the set of
     landmarks.
+    
+    
+    
+    
     
    
 ** Metrics
    
-   The results of this project was avaliated using the Mean Squared Error (MSE) 
+   The results of this project was measured using the Mean Squared Error (MSE) 
    this metrics was chosen as it is standard function for regression problems
-   and it fits well problem in question. 
+   and it fits well problem in question.
+   \begin{equation}
+  \mathbf{MSE} = \frac{1}{n}\sum_{t=1}^{n}(\hat{Y_i}-Y_i)^{2} 
+   \end{equation}
+   
+   where \(\displaystyle{\hat{Y}}\) is the real value and \(\displaystyle{Y}\) is
+   the predicted value
+   
+   The mean squared error was the choice here because it has a higher cost
+   futher the point is from the real value what, and as what we are looking for
+   is precision on the point location this kind of reinforcement is ideal for
+   the project  
    
 * Analysis   
   
@@ -259,7 +280,34 @@ Ver Valem Paiva \textsc{Willian}\\
    was to develop a CNN capable to pass a precise information about the shape in
    the image to the output layer so we could have a precise landmark on the
    image. 
+   
+*** Convolutional Neural Network 
+    
+    In the context of artificial intelligence and machine learning, a
+    Convolutional Neural Network is a class of artificial neural network of the
+    type feed-forward that have been applied with success to imaging processing
+    and analyses.
 
+    Convolutional Neural Networks uses a variation of Multi-layer Perceptrons developed in a way to
+    minimize the pre-processing. Those networks are composed of two kinds of
+    neurons, the one that do the imaging processing in subparts of a image via a
+    convolutional function, and the neurons that do the pooling. 
+    
+**** Convolutional layer 
+     In the convolutional layers a /filter/ is applied to the image to generate
+     the new matrix with the features of the image.
+     For example see the image bellow:
+ 
+     [[./images/convolve.png]]
+     
+     
+**** Polling  
+     The pooling process can variate depending on the needs, but the idea of the
+     polling is to reduce the matrix dimensionality and preserve the important
+     features from it, below we can see an example of /max pooling/ and /average
+     pooling/ and where it shines and where it falls short.
+
+     [[./images/pooling.png]]
    
 ** Benchmark 
    
@@ -312,6 +360,10 @@ Ver Valem Paiva \textsc{Willian}\\
    every model was implemented using early stopping, TensorBoard and saves the
    best loss weights on a /hdf5/ file   
 
+   About complications, this project didn't really pose a lot of problems most
+   of them have being hardware related like lack of memory or process power, but
+   other them that it was really straight forward: make a model, train, analyze results.
+
 
    #+BEGIN_EXPORT latex
    \pagebreak
@@ -331,7 +383,14 @@ Ver Valem Paiva \textsc{Willian}\\
     as we can see the learning curve for the training set was improving steadily
     but for the testing set it starts to get worst  around the epoch 16 and the
     early stopping is triggered at epoch 24 as it has no improvement.
-   
+    
+    This model have 2 Convolutional paths as is visible on the plot that is
+    because a different approach was take to extract the features, for that on
+    convolutional path uses a small kernel so it concentrates on small details
+    while the second one uses a bigger kernel to get features in a larger scale 
+    and by combining this process is possible to reach a good result and
+    avoiding the model to overfeed because the network is too large.
+
     by taking the weights of the best loss and doing an inference on a set of
     training images we get the following result: 
    
@@ -344,7 +403,7 @@ Ver Valem Paiva \textsc{Willian}\\
   
 *** Inception transfer learning   
 
-**** bottleneck
+**** Bottleneck
    
     The next step was to use transfer learning, by using the inceptionV3
     cite:szegedy2016rethinking, the first approach as to create bottleneck files
@@ -495,6 +554,11 @@ Ver Valem Paiva \textsc{Willian}\\
    At the end the model isn't a trustworthy model and some improvement has to be
    done. 
    
+   for example when using random facial picture got from the Internet we get a
+   result like this:
+   
+   [[./images/gene.png]]
+   
 
 
    
@@ -533,6 +597,43 @@ Ver Valem Paiva \textsc{Willian}\\
   fixed by using some other datasets. as we can see for example in the project
   of  Adrian Bulat on recognizing 3D facial landmarks cite:bulat2017far it uses
   more than 5 different datasets to reach an acceptable result.
+  
+** Visualization
+   
+   Some thing that was explored in this project and that did bring good
+   improvements to the result is the use of concatenation, most of the examples
+   of CNN you see today is straight forward (input->convolutional/pooling
+   layers->fully connected->output) but when looking at big models like
+   Inception or ResNet50 , those models have some trick under the sleeve.
+   Like ResNet50 add the output from a previous convolutional block to the
+   actual output, or how Inception run different convolutional stacks in a
+   parallel to reach different features.
+   
+   So with this in mind I did a use of such techniques like explained in the
+   section [[CNN from scratch]] /CNN from scratch/ to avoid big a convolutional
+   layer stack and passing long time searching for a specific kernel size,
+   I followed a different approach that improved the models performance by using
+   two identical convolutional stack but with different kernel sizes (6 and 3) 
+   it was possible to get different features, and concatenating the output of
+   each of those stacks before the fully connected layers.
+   
+   This choice was made to be able to get the features with small and larger
+   details.
+   
+   Following this idea the same approach was taken in the [[Bottleneck]] Bottleneck
+   section where instead of using just the simple output from Inception a some
+   manipulation was made to the data like using the /sine/ and the /squared/ of
+   the output and using one model that uses 3 sequences of fully connected
+   layers to analyses those features separated before being concatenated.
+   
+   The use of this kind of techniques was applied during all the process of this
+   project and showed really good improvements and extreme important on the
+   learning process as it was really useful to avoid the over-fitting of the
+   model.
+   
+   But anyway it was used with caution as it can relatively increase the
+   training time, and the improvements aren't always paying off.
+
   
 ** Reflection
    

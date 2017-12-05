@@ -2,25 +2,27 @@
 \contentsline {section}{\numberline {1}Definition}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}introduction}{2}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Problem Statement}{2}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}Metrics}{2}{subsection.1.3}
-\contentsline {section}{\numberline {2}Analysis}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Dataset}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Split the training and testing sets}{5}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Data Analyses}{5}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Data Augmentation}{9}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Algorithms and Techniques}{10}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Benchmark}{11}{subsection.2.6}
-\contentsline {section}{\numberline {3}Methodology}{11}{section.3}
-\contentsline {subsection}{\numberline {3.1}Data Preprocessing}{11}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Implementation}{11}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}CNN from scratch}{13}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Inception transfer learning}{15}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}ResNet50 transfer learning}{21}{subsubsection.3.2.3}
-\contentsline {subsection}{\numberline {3.3}Refinement}{24}{subsection.3.3}
-\contentsline {section}{\numberline {4}Results}{25}{section.4}
-\contentsline {subsection}{\numberline {4.1}Model evaluation and Validation}{25}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Justification}{25}{subsection.4.2}
-\contentsline {section}{\numberline {5}Conclusion}{26}{section.5}
-\contentsline {subsection}{\numberline {5.1}Reflection}{26}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Improvement}{26}{subsection.5.2}
-\contentsline {section}{\numberline {6}Hardware}{27}{section.6}
+\contentsline {subsection}{\numberline {1.3}Metrics}{3}{subsection.1.3}
+\contentsline {section}{\numberline {2}Analysis}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Dataset}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Split the training and testing sets}{6}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Data Analyses}{6}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Data Augmentation}{10}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Algorithms and Techniques}{11}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Convolutional Neural Network}{12}{subsubsection.2.5.1}
+\contentsline {subsection}{\numberline {2.6}Benchmark}{13}{subsection.2.6}
+\contentsline {section}{\numberline {3}Methodology}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Data Preprocessing}{13}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Implementation}{14}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}CNN from scratch}{15}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Inception transfer learning}{17}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}ResNet50 transfer learning}{23}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Refinement}{26}{subsection.3.3}
+\contentsline {section}{\numberline {4}Results}{27}{section.4}
+\contentsline {subsection}{\numberline {4.1}Model evaluation and Validation}{27}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Justification}{28}{subsection.4.2}
+\contentsline {section}{\numberline {5}Conclusion}{29}{section.5}
+\contentsline {subsection}{\numberline {5.1}Visualization}{29}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Reflection}{30}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Improvement}{30}{subsection.5.3}
+\contentsline {section}{\numberline {6}Hardware}{30}{section.6}

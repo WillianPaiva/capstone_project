@@ -8,18 +8,20 @@
 \BOOKMARK [2][-]{subsection.2.3}{Data Analyses}{section.2}% 8
 \BOOKMARK [2][-]{subsection.2.4}{Data Augmentation}{section.2}% 9
 \BOOKMARK [2][-]{subsection.2.5}{Algorithms and Techniques}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.6}{Benchmark}{section.2}% 11
-\BOOKMARK [1][-]{section.3}{Methodology}{}% 12
-\BOOKMARK [2][-]{subsection.3.1}{Data Preprocessing}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.2}{Implementation}{section.3}% 14
-\BOOKMARK [3][-]{subsubsection.3.2.1}{CNN from scratch}{subsection.3.2}% 15
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Inception transfer learning}{subsection.3.2}% 16
-\BOOKMARK [3][-]{subsubsection.3.2.3}{ResNet50 transfer learning}{subsection.3.2}% 17
-\BOOKMARK [2][-]{subsection.3.3}{Refinement}{section.3}% 18
-\BOOKMARK [1][-]{section.4}{Results}{}% 19
-\BOOKMARK [2][-]{subsection.4.1}{Model evaluation and Validation}{section.4}% 20
-\BOOKMARK [2][-]{subsection.4.2}{Justification}{section.4}% 21
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 22
-\BOOKMARK [2][-]{subsection.5.1}{Reflection}{section.5}% 23
-\BOOKMARK [2][-]{subsection.5.2}{Improvement}{section.5}% 24
-\BOOKMARK [1][-]{section.6}{Hardware}{}% 25
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Convolutional Neural Network}{subsection.2.5}% 11
+\BOOKMARK [2][-]{subsection.2.6}{Benchmark}{section.2}% 12
+\BOOKMARK [1][-]{section.3}{Methodology}{}% 13
+\BOOKMARK [2][-]{subsection.3.1}{Data Preprocessing}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.2}{Implementation}{section.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.2.1}{CNN from scratch}{subsection.3.2}% 16
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Inception transfer learning}{subsection.3.2}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.3}{ResNet50 transfer learning}{subsection.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Refinement}{section.3}% 19
+\BOOKMARK [1][-]{section.4}{Results}{}% 20
+\BOOKMARK [2][-]{subsection.4.1}{Model evaluation and Validation}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.2}{Justification}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Visualization}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Reflection}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{Improvement}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{Hardware}{}% 27
